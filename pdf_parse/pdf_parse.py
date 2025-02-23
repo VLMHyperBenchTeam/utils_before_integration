@@ -20,6 +20,7 @@ def convert_pdf_to_images(pdf_path, images_folder, zoom_x=2.0, zoom_y=2.0):
         print(f"------Обработка PDF-файла: {pdf_path}------")
 
         # Создание путей
+        name_file = pdf_path[:-4]
         pdf_path = Path(pdf_path)
         images_folder = Path(images_folder)
 
@@ -35,8 +36,8 @@ def convert_pdf_to_images(pdf_path, images_folder, zoom_x=2.0, zoom_y=2.0):
 
         # Конвертация каждой страницы в изображение
         for page in doc:
-            pix = page.get_pixmap(matrix=mat)  # Использование масштабирования matrix=mat
-            output_path = images_folder / f"page-{page.number}.png"
+            pix = page.get_pixmap(matrix=mat)  # Использование масштабирования matrix=mat           
+            output_path = images_folder / f"{name_file}_{page.number + 1}.png"
             pix.save(output_path)  
 
         doc.close()
